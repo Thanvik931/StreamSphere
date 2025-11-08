@@ -1,77 +1,104 @@
-'use strict';
-
-const SqlString = require('sqlstring');
-
-const ConnectionConfig = require('./lib/connection_config.js');
-const parserCache = require('./lib/parsers/parser_cache.js');
-
-const Connection = require('./lib/connection.js');
-
-exports.createConnection = require('./lib/create_connection.js');
-exports.connect = exports.createConnection;
-exports.Connection = Connection;
-exports.ConnectionConfig = ConnectionConfig;
-
-const Pool = require('./lib/pool.js');
-const PoolCluster = require('./lib/pool_cluster.js');
-const createPool = require('./lib/create_pool.js');
-const createPoolCluster = require('./lib/create_pool_cluster.js');
-
-exports.createPool = createPool;
-
-exports.createPoolCluster = createPoolCluster;
-
-exports.createQuery = Connection.createQuery;
-
-exports.Pool = Pool;
-
-exports.PoolCluster = PoolCluster;
-
-exports.createServer = function (handler) {
-  const Server = require('./lib/server.js');
-  const s = new Server();
-  if (handler) {
-    s.on('connection', handler);
-  }
-  return s;
-};
-
-exports.PoolConnection = require('./lib/pool_connection.js');
-exports.authPlugins = require('./lib/auth_plugins');
-exports.escape = SqlString.escape;
-exports.escapeId = SqlString.escapeId;
-exports.format = SqlString.format;
-exports.raw = SqlString.raw;
-
-exports.__defineGetter__(
-  'createConnectionPromise',
-  () => require('./promise.js').createConnection
-);
-
-exports.__defineGetter__(
-  'createPoolPromise',
-  () => require('./promise.js').createPool
-);
-
-exports.__defineGetter__(
-  'createPoolClusterPromise',
-  () => require('./promise.js').createPoolCluster
-);
-
-exports.__defineGetter__('Types', () => require('./lib/constants/types.js'));
-
-exports.__defineGetter__('Charsets', () =>
-  require('./lib/constants/charsets.js')
-);
-
-exports.__defineGetter__('CharsetToEncoding', () =>
-  require('./lib/constants/charset_encodings.js')
-);
-
-exports.setMaxParserCache = function (max) {
-  parserCache.setMaxCache(max);
-};
-
-exports.clearParserCache = function () {
-  parserCache.clearCache();
-};
+export * from "./AbortMultipartUploadCommand";
+export * from "./CompleteMultipartUploadCommand";
+export * from "./CopyObjectCommand";
+export * from "./CreateBucketCommand";
+export * from "./CreateBucketMetadataConfigurationCommand";
+export * from "./CreateBucketMetadataTableConfigurationCommand";
+export * from "./CreateMultipartUploadCommand";
+export * from "./CreateSessionCommand";
+export * from "./DeleteBucketAnalyticsConfigurationCommand";
+export * from "./DeleteBucketCommand";
+export * from "./DeleteBucketCorsCommand";
+export * from "./DeleteBucketEncryptionCommand";
+export * from "./DeleteBucketIntelligentTieringConfigurationCommand";
+export * from "./DeleteBucketInventoryConfigurationCommand";
+export * from "./DeleteBucketLifecycleCommand";
+export * from "./DeleteBucketMetadataConfigurationCommand";
+export * from "./DeleteBucketMetadataTableConfigurationCommand";
+export * from "./DeleteBucketMetricsConfigurationCommand";
+export * from "./DeleteBucketOwnershipControlsCommand";
+export * from "./DeleteBucketPolicyCommand";
+export * from "./DeleteBucketReplicationCommand";
+export * from "./DeleteBucketTaggingCommand";
+export * from "./DeleteBucketWebsiteCommand";
+export * from "./DeleteObjectCommand";
+export * from "./DeleteObjectTaggingCommand";
+export * from "./DeleteObjectsCommand";
+export * from "./DeletePublicAccessBlockCommand";
+export * from "./GetBucketAccelerateConfigurationCommand";
+export * from "./GetBucketAclCommand";
+export * from "./GetBucketAnalyticsConfigurationCommand";
+export * from "./GetBucketCorsCommand";
+export * from "./GetBucketEncryptionCommand";
+export * from "./GetBucketIntelligentTieringConfigurationCommand";
+export * from "./GetBucketInventoryConfigurationCommand";
+export * from "./GetBucketLifecycleConfigurationCommand";
+export * from "./GetBucketLocationCommand";
+export * from "./GetBucketLoggingCommand";
+export * from "./GetBucketMetadataConfigurationCommand";
+export * from "./GetBucketMetadataTableConfigurationCommand";
+export * from "./GetBucketMetricsConfigurationCommand";
+export * from "./GetBucketNotificationConfigurationCommand";
+export * from "./GetBucketOwnershipControlsCommand";
+export * from "./GetBucketPolicyCommand";
+export * from "./GetBucketPolicyStatusCommand";
+export * from "./GetBucketReplicationCommand";
+export * from "./GetBucketRequestPaymentCommand";
+export * from "./GetBucketTaggingCommand";
+export * from "./GetBucketVersioningCommand";
+export * from "./GetBucketWebsiteCommand";
+export * from "./GetObjectAclCommand";
+export * from "./GetObjectAttributesCommand";
+export * from "./GetObjectCommand";
+export * from "./GetObjectLegalHoldCommand";
+export * from "./GetObjectLockConfigurationCommand";
+export * from "./GetObjectRetentionCommand";
+export * from "./GetObjectTaggingCommand";
+export * from "./GetObjectTorrentCommand";
+export * from "./GetPublicAccessBlockCommand";
+export * from "./HeadBucketCommand";
+export * from "./HeadObjectCommand";
+export * from "./ListBucketAnalyticsConfigurationsCommand";
+export * from "./ListBucketIntelligentTieringConfigurationsCommand";
+export * from "./ListBucketInventoryConfigurationsCommand";
+export * from "./ListBucketMetricsConfigurationsCommand";
+export * from "./ListBucketsCommand";
+export * from "./ListDirectoryBucketsCommand";
+export * from "./ListMultipartUploadsCommand";
+export * from "./ListObjectVersionsCommand";
+export * from "./ListObjectsCommand";
+export * from "./ListObjectsV2Command";
+export * from "./ListPartsCommand";
+export * from "./PutBucketAccelerateConfigurationCommand";
+export * from "./PutBucketAclCommand";
+export * from "./PutBucketAnalyticsConfigurationCommand";
+export * from "./PutBucketCorsCommand";
+export * from "./PutBucketEncryptionCommand";
+export * from "./PutBucketIntelligentTieringConfigurationCommand";
+export * from "./PutBucketInventoryConfigurationCommand";
+export * from "./PutBucketLifecycleConfigurationCommand";
+export * from "./PutBucketLoggingCommand";
+export * from "./PutBucketMetricsConfigurationCommand";
+export * from "./PutBucketNotificationConfigurationCommand";
+export * from "./PutBucketOwnershipControlsCommand";
+export * from "./PutBucketPolicyCommand";
+export * from "./PutBucketReplicationCommand";
+export * from "./PutBucketRequestPaymentCommand";
+export * from "./PutBucketTaggingCommand";
+export * from "./PutBucketVersioningCommand";
+export * from "./PutBucketWebsiteCommand";
+export * from "./PutObjectAclCommand";
+export * from "./PutObjectCommand";
+export * from "./PutObjectLegalHoldCommand";
+export * from "./PutObjectLockConfigurationCommand";
+export * from "./PutObjectRetentionCommand";
+export * from "./PutObjectTaggingCommand";
+export * from "./PutPublicAccessBlockCommand";
+export * from "./RenameObjectCommand";
+export * from "./RestoreObjectCommand";
+export * from "./SelectObjectContentCommand";
+export * from "./UpdateBucketMetadataInventoryTableConfigurationCommand";
+export * from "./UpdateBucketMetadataJournalTableConfigurationCommand";
+export * from "./UploadPartCommand";
+export * from "./UploadPartCopyCommand";
+export * from "./WriteGetObjectResponseCommand";
