@@ -1,0 +1,54 @@
+[
+  {
+    "id": "mv_1762506211240",
+    "title": "Kantara",
+    "description": "movie",
+    "category": "movie",
+    "poster": "/uploads/1762506211225-479474703.jpg",
+    "sourceType": "file",
+    "videoPath": "/uploads/1762506195513-427407939.mp4",
+    "videoUrl": null,
+    "creatorEmail": "2410030161@klh.edu.in",
+    "createdAt": 1762506211240,
+    "approved": true
+  },
+  {
+    "id": "mv_1762506212030",
+    "title": "Kantara",
+    "description": "movie",
+    "category": "movie",
+    "poster": "/uploads/1762506212023-711215277.jpg",
+    "sourceType": "file",
+    "videoPath": "/uploads/1762506197225-677379570.mp4",
+    "videoUrl": null,
+    "creatorEmail": "2410030161@klh.edu.in",
+    "createdAt": 1762506212030,
+    "approved": true
+  },
+  {
+    "id": "mv_1762506213855",
+    "title": "Kantara",
+    "description": "movie",
+    "category": "movie",
+    "poster": "/uploads/1762506213847-668358374.jpg",
+    "sourceType": "file",
+    "videoPath": "/uploads/1762506199472-791081076.mp4",
+    "videoUrl": null,
+    "creatorEmail": "2410030161@klh.edu.in",
+    "createdAt": 1762506213855,
+    "approved": true
+  },
+  {
+    "id": "mv_1762506214050",
+    "title": "Kantara",
+    "description": "movie",
+    "category": "movie",
+    "poster": "/uploads/1762506214042-834580396.jpg",
+    "sourceType": "file",
+    "videoPath": "/uploads/1762506199698-894678177.mp4",
+    "videoUrl": null,
+    "creatorEmail": "2410030161@klh.edu.in",
+    "createdAt": 1762506214050,
+    "approved": true
+  }
+]

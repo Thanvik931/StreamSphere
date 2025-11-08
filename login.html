@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Stream Sphere</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .login-container { min-height: 100vh; display: grid; place-items: center; padding: 24px; position: relative; overflow: hidden; background: #0b0b0b; }
+    .login-card { width: min(420px, 92vw); background: rgba(12,12,12,0.88); border-radius: 16px; padding: 24px; box-shadow: 0 30px 70px rgba(0,0,0,0.75); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.06); position: relative; z-index: 3; }
+    .login-title { color: #e50914; text-align: center; margin-bottom: 8px; font-size: 28px; font-weight: 700; }
+    .login-sub { text-align: center; color: #bbb; margin-bottom: 18px; }
+    .form-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-row label { color: #ddd; font-size: 14px; }
+    .form-input { width: 100%; padding: 12px 14px; border: 2px solid #333; border-radius: 10px; background: rgba(0,0,0,0.8); color: #fff; font-size: 15px; outline: none; }
+    .form-input:focus { border-color: #e50914; box-shadow: 0 0 8px #e50914; }
+    .pw-wrap { position: relative; }
+    .toggle-pw { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; color: #bbb; border: none; cursor: pointer; }
+    .row-inline { display: flex; align-items: center; justify-content: space-between; margin: 10px 0; }
+    .login-btn { width: 100%; padding: 12px 16px; background: #e50914; color: #fff; border: none; border-radius: 10px; font-size: 16px; cursor: pointer; }
+    .login-btn:hover { background: #b0060f; }
+    .error { color: #ff7373; font-size: 14px; min-height: 18px; }
+    .back-home { display: inline-block; margin-top: 12px; color: #fff; text-align: center; width: 100%; text-decoration: underline; }
+
+    .mosaic-bg { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+    .mosaic-tiles { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(6, 1fr); gap: 2px; filter: saturate(1.1) contrast(1.05); }
+    .mosaic-tiles img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .mosaic-vignette { position: absolute; inset: 0; background: radial-gradient(85% 80% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.32) 62%, rgba(0,0,0,0.68) 100%), linear-gradient(180deg, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.58) 100%); z-index: 2; }
+    .brand-logo { position: absolute; inset: 0; display: grid; place-items: center; z-index: 2; pointer-events: none; }
+    .brand-logo h1 { margin: 0; font-size: clamp(32px, 8vw, 60px); letter-spacing: 2px; color: #ffffff; text-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 40px rgba(229,9,20,0.35); font-weight: 900; }
+    @media (max-width: 640px){ .mosaic-tiles{ grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(8, 1fr);} }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="mosaic-bg" aria-hidden="true">
+      <div class="mosaic-tiles" id="mosaicTiles"></div>
+      <div class="mosaic-vignette"></div>
+      <div class="brand-logo"><h1>STREAM SPHERE</h1></div>
+    </div>
+    
+    <div class="login-card">
+      <div class="login-title">Stream Sphere</div>
+      <div class="login-sub">Sign in to continue</div>
+      <form id="loginForm" novalidate>
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" class="form-input" placeholder="you@example.com" required />
+        </div>
+        <div class="form-row pw-wrap">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" class="form-input" placeholder="Your password" required minlength="4" />
+          <button type="button" id="togglePw" class="toggle-pw">Show</button>
+        </div>
+        <div class="row-inline">
+          <label style="color:#ccc; display:flex; align-items:center; gap:8px;">
+            <input type="checkbox" id="remember" /> Remember me
+          </label>
+          <a href="reset.html" style="color:#bbb;">Forgot password?</a>
+        </div>
+        <div class="error" id="error"></div>
+        <button type="submit" class="login-btn">Login</button>
+        <div style="margin-top:10px; text-align:center; color:#bbb;">
+          New here? <a href="register.html" style="color:#fff; text-decoration: underline;">Create an account</a>
+        </div>
+        <a href="Index.html" class="back-home">Back to Home</a>
+      </form>
+    </div>
+  </div>
+  <script>
+    (function(){
+      const posters = [
+        'https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg',
+        'https://image.tmdb.org/t/p/w500/pU3bnutJU91u3b4IeRPQTOP8jhV.jpg',
+        'https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
+        'https://image.tmdb.org/t/p/w500/Ag7VUdnrRz5Qpq3Yn3EwYyaXK3e.jpg',
+        'https://image.tmdb.org/t/p/w500/cezWGskPY5x7GaglTTRN4Fugfb8.jpg',
+        'https://image.tmdb.org/t/p/w500/a1MlbLBk5Sy6YvMbSuKfwGlDVlb.jpg',
+        'https://image.tmdb.org/t/p/w500/9O7gLzmreU0nGkIB6K3BsJbzvNv.jpg',
+        'https://image.tmdb.org/t/p/w500/velWPhVMQeQKcxggNEU8YmIo52R.jpg',
+        'https://image.tmdb.org/t/p/w500/2CAL2433ZeIihfX1Hb2139CX0pW.jpg',
+        'https://image.tmdb.org/t/p/w500/yPisjyLweCl1tbgwgtzBCNCBle.jpg',
+        'https://image.tmdb.org/t/p/w500/e1mjopzAS2KNsvpbpahQ1a6SkSn.jpg',
+        'https://image.tmdb.org/t/p/w500/8zqirn4K1rEb3Z8Q6V8V3giNqQ2.jpg',
+        'https://image.tmdb.org/t/p/w500/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg',
+        'https://image.tmdb.org/t/p/w500/6VAIN6pp7XrjlSxQcI0KymWqNmh.jpg',
+        'https://image.tmdb.org/t/p/w500/3WjbxaqYB4vAbdUfdr5vbglD2JZ.jpg',
+        'https://image.tmdb.org/t/p/w500/5KCVkau1HEl7ZzfPsKAPM0sMiKc.jpg',
+        'https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg',
+        'https://image.tmdb.org/t/p/w500/ab7p8XMZr3G3sO9u5fFZG2GZ8J4.jpg',
+        'https://image.tmdb.org/t/p/w500/2TeJfUZMGolfDdW6dkd0I6lQ7c8.jpg',
+        'https://image.tmdb.org/t/p/w500/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg',
+        'https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg',
+        'https://image.tmdb.org/t/p/w500/ktDJ21QQscbMNQfPpZAf7rg0hBK.jpg',
+        'https://image.tmdb.org/t/p/w500/8N0DNa5QBrOHZ1gL3l6a3nqoZ7W.jpg',
+        'https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg',
+        'https://image.tmdb.org/t/p/w500/fnbjcRDYn6YviCcePDnGdyAkYsB.jpg',
+        'https://image.tmdb.org/t/p/w500/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg',
+        'https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg',
+        'https://image.tmdb.org/t/p/w500/zGLHX92Gk96O1DJvLil7ObJTbaL.jpg',
+        'https://image.tmdb.org/t/p/w500/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg',
+        'https://image.tmdb.org/t/p/w500/hziiv14OpD73u9gAak4XDDfBKa2.jpg',
+        'https://image.tmdb.org/t/p/w500/3Rfvhy1Nl6sSGJwyjb0QiZzZYlB.jpg',
+        'https://image.tmdb.org/t/p/w500/8YFL5QQVPy3AgrEQxNYVSgiPEbe.jpg',
+        'https://image.tmdb.org/t/p/w500/9O1Iy9od7AY4mY3VvQBQ3Q2aGv7.jpg',
+        'https://image.tmdb.org/t/p/w500/1TUg5pO1VZ4B0Q1amk3OlXvlpXr.jpg'
+      ];
+      const fallback = 'https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg';
+      const tiles = document.getElementById('mosaicTiles');
+      const total = 48;
+      for (let i=0;i<total;i++){
+        const src = posters[i % posters.length];
+        const img = document.createElement('img');
+        img.loading = 'lazy';
+        img.referrerPolicy = 'no-referrer';
+        img.src = src;
+        img.alt = '';
+        img.onerror = function(){ this.onerror=null; this.src = fallback; };
+        tiles.appendChild(img);
+      }
+    })();
+  </script>
+  <script src="login.js"></script>
+</body>
+</html>

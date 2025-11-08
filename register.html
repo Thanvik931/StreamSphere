@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - Stream Sphere</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .auth-container { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+    .auth-card { width: min(460px, 92vw); background: #1c1c1c; border-radius: 12px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+    .auth-title { color: #e50914; text-align: center; margin-bottom: 8px; font-size: 28px; font-weight: 700; }
+    .auth-sub { text-align: center; color: #bbb; margin-bottom: 18px; }
+    .form-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .form-row label { color: #ddd; font-size: 14px; }
+    .form-input { width: 100%; padding: 12px 14px; border: 2px solid #333; border-radius: 10px; background: rgba(0,0,0,0.8); color: #fff; font-size: 15px; outline: none; }
+    .form-input:focus { border-color: #e50914; box-shadow: 0 0 8px #e50914; }
+    .pw-wrap { position: relative; }
+    .toggle-pw { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; color: #bbb; border: none; cursor: pointer; }
+    .auth-btn { width: 100%; padding: 12px 16px; background: #e50914; color: #fff; border: none; border-radius: 10px; font-size: 16px; cursor: pointer; }
+    .auth-btn:hover { background: #b0060f; }
+    .error { color: #ff7373; font-size: 14px; min-height: 18px; }
+    .link-row { margin-top: 10px; text-align:center; color:#bbb; }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-title">Create Account</div>
+      <div class="auth-sub">Join Stream Sphere</div>
+      <form id="registerForm" novalidate>
+        <div class="form-row">
+          <label for="rEmail">Email</label>
+          <input id="rEmail" name="email" type="email" class="form-input" placeholder="you@example.com" required />
+        </div>
+        <div class="form-row">
+          <label for="rRole">Account Type</label>
+          <select id="rRole" class="form-input">
+            <option value="user">User (Free)</option>
+            <option value="creator">Creator</option>
+          </select>
+        </div>
+        <div class="form-row pw-wrap">
+          <label for="rPassword">Password</label>
+          <input id="rPassword" name="password" type="password" class="form-input" placeholder="Create a password" required minlength="4" />
+          <button type="button" id="togglePw1" class="toggle-pw">Show</button>
+        </div>
+        <div class="form-row pw-wrap">
+          <label for="rPassword2">Confirm Password</label>
+          <input id="rPassword2" name="password2" type="password" class="form-input" placeholder="Confirm password" required minlength="4" />
+          <button type="button" id="togglePw2" class="toggle-pw">Show</button>
+        </div>
+        <div class="error" id="rError"></div>
+        <button type="submit" class="auth-btn">Create Account</button>
+        <div class="info" style="text-align:center; margin-top:6px;">Creators can upload content immediately after registration.</div>
+        <div class="link-row">Already have an account? <a href="login.html" style="color:#fff; text-decoration: underline;">Login</a></div>
+        <a href="Index.html" class="back-home" style="display:block; margin-top:10px; text-align:center;">Back to Home</a>
+      </form>
+    </div>
+  </div>
+  <script src="register.js"></script>
+</body>
+</html>

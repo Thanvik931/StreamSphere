@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Sphere - Movies and Series Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>  
+    <div class="header">
+        <div class="logo">
+            <img src="Logo.jpg" alt="StreamSphere" class="logo-img">
+        </div>
+        <div class="auth-actions">
+            <button id="logoutBtn" class="auth-button" style="display:none;">Logout</button>
+            <a id="loginLink" class="auth-link" href="login.html" style="display:none;">Login</a>
+            <a id="creatorDashLink" class="auth-link" href="creator.html" style="display:none;">Creator</a>
+        </div>
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search for movies..." id="searchInput">
+            </div>
+        </div>
+    </div>
+
+    <div class="filter">
+        <select id="genreFilter">
+            <option value="All">All Genres</option>
+            <option value="Sports">Sports</option>
+        </select>
+
+        <select id="yearFilter">
+            <option value="All">All Years</option>
+        </select>
+
+        <select id="sortFilter">
+            <option value="Relevance">Sort by Relevance</option>
+            <option value="Alphabetical">Alphabetical</option>
+            <option value="Latest">Latest</option>
+            <option value="Highest Rating">Highest Rating</option>
+        </select>
+    </div>
+
+    <button class="clear-button" id="clearButton">Clear All</button>
+
+    <div class="main-content">
+        <div id="trendingSection" class="section-title">
+           🔥 Trending Now
+        </div>
+        <div class="carousel-container">
+            <button class="carousel-button previous" id="trendingPrevious">≺</button>
+            <div class="carousel" id="trendingCarousel"></div>
+            <button class="carousel-button next" id="trendingNext">≻</button>
+        </div>
+
+        <div class="section-title" id="randomSectionTitle">
+            🎬 Discover Movies
+        </div>
+        <div class="movie-grid" id="moviesGrid"></div>
+
+        <div class="section-title" id="seriesSectionTitle" style="margin-top:30px;">
+            📺 Web Series
+        </div>
+        <div class="movie-grid" id="seriesGrid"></div>
+
+        <div class="section-title" id="creatorSectionTitle" style="margin-top:30px;">
+            🎥 Creator Uploads (by StreamSphere)
+        </div>
+        <div class="movie-grid" id="creatorGrid"></div>
+
+        
+    </div>
+
+    <div id="playerModal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop" id="playerBackdrop"></div>
+        <div class="modal-dialog" role="dialog" aria-modal="true" aria-label="Movie Player">
+            <button class="modal-close" id="playerClose" aria-label="Close">✕</button>
+            <div class="player-container">
+                <video id="mp4Player" controls playsinline style="display:none;" class="video-el">
+                    <source id="mp4Source" src="" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+                <div id="ytContainer" class="yt-container" style="display:none;">
+                    <iframe id="ytPlayer" title="Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="meta-panel">
+                <div id="metaLoading" class="meta-loading">Loading details...</div>
+                <div id="metaContent" style="display:none;">
+                    <div class="meta-title" id="metaTitle"></div>
+                    <div class="meta-desc" id="metaDesc"></div>
+                    <div class="meta-sub">
+                        <div>
+                            <div class="meta-heading">Top Cast</div>
+                            <div id="castList" class="meta-list"></div>
+                        </div>
+                        <div>
+                            <div class="meta-heading">Crew</div>
+                            <div id="crewList" class="meta-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="Script.js"></script>
+</body>
+</html>

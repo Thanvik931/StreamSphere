@@ -1,0 +1,23 @@
+[
+  {
+    "email": "thanvikreddy2@gmail.com",
+    "password": "Anusha@961",
+    "role": "user",
+    "creatorSubscribed": false,
+    "createdAt": 1762438705502
+  },
+  {
+    "email": "2410030161@klh.edu.in",
+    "password": "1234567",
+    "role": "creator",
+    "creatorSubscribed": false,
+    "createdAt": 1762438808963
+  },
+  {
+    "email": "2410030050@klh.edu.in",
+    "password": "yash@123",
+    "role": "user",
+    "creatorSubscribed": false,
+    "createdAt": 1762500538926
+  }
+]

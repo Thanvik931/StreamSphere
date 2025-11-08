@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creator Dashboard - Stream Sphere</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .wrap { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+    .card { background:#1c1c1c; border-radius:12px; padding:18px; margin-bottom:16px; }
+    .row { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .muted { color:#bbb; }
+    .btn { background:#e50914; color:#fff; border:none; border-radius:8px; padding:10px 14px; cursor:pointer; }
+    .btn[disabled] { opacity:0.6; cursor:not-allowed; }
+    .form { display:grid; grid-template-columns:1fr; gap:12px; }
+    .form .form-row { display:flex; flex-direction:column; gap:6px; }
+    .form .form-input, .form select { width:100%; padding:10px 12px; border:2px solid #333; border-radius:10px; background:rgba(0,0,0,0.8); color:#fff; }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media(max-width:720px){ .two-col{ grid-template-columns:1fr; } }
+    .error { color:#ff7373; }
+    .success { color:#7CFC90; }
+  </style>
+</head>
+<body>
+  <div class="header">
+  <div class="logo"><img src="assets/logo.jpg" alt="streamsphere" class="logo-img"></div>
+    <div class="auth-actions">
+      <a class="auth-link" href="Index.html">Home</a>
+      <button id="logoutBtn" class="auth-button">Logout</button>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="card">
+      <div style="font-weight:700; font-size:18px; margin-bottom:8px;">Upload a Movie</div>
+      <form id="uploadForm" class="form">
+        <div class="two-col">
+          <div class="form-row">
+            <label for="title">Movie Title</label>
+            <input id="title" class="form-input" placeholder="Enter title" />
+          </div>
+          <div class="form-row">
+            <label for="poster">Movie Poster (image file)</label>
+            <input id="poster" type="file" accept="image/*" />
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="form-row">
+            <label for="category">Category</label>
+            <select id="category" class="form-input">
+              <option value="movie">Movie</option>
+              <option value="webseries">Web Series</option>
+              <option value="sports">Sports</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="videoUrl">Video URL</label>
+            <input id="videoUrl" class="form-input" placeholder="https://... (MP4 or YouTube link)" />
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="description">Description</label>
+          <textarea id="description" class="form-input" rows="3" placeholder="Short description"></textarea>
+        </div>
+        <div class="form-row">
+          <label for="sourceType">Source</label>
+          <select id="sourceType" class="form-input">
+            <option value="file">Upload MP4 file</option>
+            <option value="url">Provide URL (MP4 or YouTube)</option>
+          </select>
+        </div>
+        <div id="fileRow" class="form-row">
+          <label for="video">Video File (MP4)</label>
+          <input id="video" type="file" accept="video/mp4" />
+        </div>
+        <div id="urlRow" class="form-row" style="display:none;"></div>
+        <div class="row">
+          <button id="uploadBtn" class="btn" type="submit">Upload</button>
+          <span id="uploadMsg" class="muted"></span>
+        </div>
+        <div id="uploadError" class="error"></div>
+      </form>
+    </div>
+
+    <div class="card">
+      <div style="font-weight:700; font-size:18px; margin-bottom:8px;">Your Uploads</div>
+      <div id="myUploads" class="movie-grid"></div>
+    </div>
+  </div>
+
+  <script src="creator.js"></script>
+</body>
+</html>
